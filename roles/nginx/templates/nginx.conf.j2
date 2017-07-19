@@ -1,0 +1,50 @@
+#####################
+#
+# Port 80 is only used to server static stuff
+#
+#####################
+
+server {
+    listen 80;
+    server_name {{ satosa_tld }};
+
+    # path for static files
+    root {{ www_dir }};
+
+    # points to sp metadata file
+    location /metadata {
+      # allow directory browsing
+      autoindex on;
+    }
+}
+
+#####################
+#
+# Port 443 is used to server static stuff and all services.
+#
+#####################
+
+server {
+    listen {{ nginx_port }} ssl;
+    ssl_certificate {{ proxy_server_cert }};
+    ssl_certificate_key {{ proxy_server_key }};
+    server_name {{ satosa_tld }};
+
+    keepalive_timeout 5;
+
+    # path for static files
+    root {{ www_dir }};
+
+    location /logos {
+      # checks for logos file
+      #autoindex on;
+    }
+
+    # points to metadata file
+    location /metadata {
+      # allow directory browsing
+      autoindex on;
+    }
+
+}
+

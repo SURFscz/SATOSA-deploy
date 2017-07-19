@@ -1,0 +1,33 @@
+# nginx configuration
+satosa_tld: "satosa.local"
+satosa_hostname: "proxy.{{satosa_tld}}"
+pyff_hostname: "mdq.{{satosa_tld}}"
+
+cert_dir: "/opt/satosa/certs"
+www_dir: "/var/www/html"
+nginx_port: 443
+
+
+# SATOSA configuration
+satosa_repo_url: "https://github.com/SURFscz/SATOSA.git"
+satosa_repo_version: "scz-poc"
+satosa_project_dir: "/opt/satosa"
+satosa_src_dir: "{{ satosa_project_dir }}/satosa-src"
+satosa_env_dir: "{{ satosa_project_dir }}/satosa-env"
+
+satosa_host: "127.0.0.1"
+satosa_port: "8080"
+satosa_state_encryption_key: "poikjh567"
+satosa_user_id_hash_salt: "59o3gaxfwg0svem1n1g3tk22i9mihcom"
+
+mongodb_host: "127.0.0.1"
+
+# pyFF configuration
+pyff_repo_url: "https://github.com/leifj/pyFF.git"
+pyff_repo_version: "master"
+pyff_project_dir: "/opt/pyff"
+pyff_src_dir: "{{ pyff_project_dir }}/pyff-src"
+pyff_env_dir: "{{ pyff_project_dir }}/pyff-env"
+
+pyff_host: "127.0.0.1"
+pyff_port: "8090"

@@ -1,0 +1,48 @@
+- name: Include variables
+  include_vars: "nginx.yml"
+
+- name: Create certificate directory
+  file: path={{ cert_dir }} state=directory mode=0755
+
+- name: Copy certificates
+  copy:
+    src: "{{ item }}"
+    dest: "{{ cert_dir }}"
+    mode: "0644"
+  with_items: "{{ nginx_certificates }}"
+
+- name: remove default nginx config
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  become_method: sudo
+
+- name: add nginx config for main site to sites-available
+  template: src=nginx.conf.j2
+            dest=/etc/nginx/sites-available/{{ satosa_tld }}
+  become_method: sudo
+
+- name: add nginx config for proxy site to sites-available
+  template: src=satosa.conf.j2
+            dest=/etc/nginx/sites-available/{{ satosa_hostname }}
+  become_method: sudo
+
+- name: add nginx config for mdq site to sites-available
+  template: src=pyff.conf.j2
+            dest=/etc/nginx/sites-available/{{ pyff_hostname }}
+  become_method: sudo
+
+- name: Create symlink to {{ satosa_tld }} in sites-enabled
+  file: src=/etc/nginx/sites-available/{{ satosa_tld }} dest=/etc/nginx/sites-enabled/{{ satosa_tld }} state=link
+  become_method: sudo
+
+- name: Create symlink to {{ satosa_hostname}} in sites-enabled
+  file: src=/etc/nginx/sites-available/{{ satosa_hostname }} dest=/etc/nginx/sites-enabled/{{ satosa_hostname }} state=link
+  become_method: sudo
+
+- name: Create symlink to {{ pyff_hostname }} in sites-enabled
+  file: src=/etc/nginx/sites-available/{{ pyff_hostname }} dest=/etc/nginx/sites-enabled/{{ pyff_hostname }} state=link
+  become_method: sudo
+
+- name: restart nginx
+  service: name=nginx state=restarted
+  become_method: sudo
+

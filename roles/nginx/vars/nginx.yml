@@ -1,0 +1,14 @@
+nginx_certificates:
+  - "certs/satosa.local.crt"
+  - "certs/satosa.local.key"
+  - "certs/proxy.satosa.local.crt"
+  - "certs/proxy.satosa.local.key"
+  - "certs/mdq.satosa.local.crt"
+  - "certs/mdq.satosa.local.key"
+
+nginx_server_cert: "{{cert_dir}}/satosa.local.crt"
+nginx_server_key:  "{{cert_dir}}/satosa.local.key"
+proxy_server_cert: "{{cert_dir}}/proxy.satosa.local.crt"
+proxy_server_key:  "{{cert_dir}}/proxy.satosa.local.key"
+mdq_server_cert:   "{{cert_dir}}/mdq.satosa.local.crt"
+mdq_server_key:    "{{cert_dir}}/mdq.satosa.local.key"

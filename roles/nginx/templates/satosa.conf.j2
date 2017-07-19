@@ -1,0 +1,13 @@
+# subdomain for the satosa proxy
+server {
+    listen {{ nginx_port }} ssl;
+    ssl_certificate {{ proxy_server_cert }};
+    ssl_certificate_key {{ proxy_server_key }};
+    server_name {{ satosa_hostname }};
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_pass http://{{ satosa_host }}:{{ satosa_port }}/;
+    }
+}
+

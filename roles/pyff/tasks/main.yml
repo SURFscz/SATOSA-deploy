@@ -25,11 +25,15 @@
   template: src=pyff.service.j2
             dest="{{ pyff_env_dir }}/pyff.service"
   become_method: sudo
-  
-- name: Create symlink to pyff.service in /etc/systemd/system
-  file: src="{{ pyff_env_dir }}/pyff.service" dest=/etc/systemd/system/pyff.service state=link
+
+- name: Copy to pyff.service in /etc/systemd/system
+# systemd/ctl can not enable symlinked services :(
+# https://github.com/systemd/systemd/issues/3010
+#- name: Create symlink to pyff.service in /etc/systemd/system
+#  file: src="{{ pyff_env_dir }}/pyff.service" dest=/etc/systemd/system/pyff.service state=link
+  copy: src="{{ pyff_env_dir }}/pyff.service" dest=/etc/systemd/system/pyff.service
   become_method: sudo
 
 - name: restart pyff
-  service: name=pyff state=restarted
+  service: name=pyff state=restarted enabled=yes
   become_method: sudo

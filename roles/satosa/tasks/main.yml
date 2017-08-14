@@ -73,10 +73,14 @@
             dest="{{ satosa_env_dir }}/satosa.service"
   become_method: sudo
 
-- name: Create symlink to satosa.service in /etc/systemd/system
-  file: src="{{ satosa_env_dir }}/satosa.service" dest=/etc/systemd/system/satosa.service state=link
+- name: Copy to satosa.service in /etc/systemd/system
+# systemd/ctl can not enable symlinked services :(
+#- name: Create symlink to satosa.service in /etc/systemd/system
+# https://github.com/systemd/systemd/issues/3010
+#  file: src="{{ satosa_env_dir }}/satosa.service" dest=/etc/systemd/system/satosa.service state=link
+  copy: src="{{ satosa_env_dir }}/satosa.service" dest=/etc/systemd/system/satosa.service
   become_method: sudo
 
 - name: restart SATOSA
-  service: name=satosa state=restarted
+  service: name=satosa state=restarted enabled=yes
   become_method: sudo

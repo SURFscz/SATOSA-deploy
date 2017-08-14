@@ -43,6 +43,6 @@
   become_method: sudo
 
 - name: restart nginx
-  service: name=nginx state=restarted
+  service: name=nginx state=restarted enabled=yes
   become_method: sudo
 

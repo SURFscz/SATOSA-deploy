@@ -50,6 +50,13 @@
     - frontend.crt
     - frontend.key
 
+- name: Create keys directory
+  file: path="{{ satosa_env_dir }}/keys" state=directory mode=0755
+
+- name: Copy satosa private key
+  copy: src=satosa.pem
+        dest="{{ satosa_env_dir }}/keys/satosa.pem"
+
 - name: Create saml2_frontend.yaml definition
   template: src=saml2_frontend.yaml.j2
         dest="{{ satosa_env_dir }}/plugins/frontends/saml2_frontend.yaml"
@@ -65,6 +72,10 @@
   template: src=custom_logging_service.yaml.j2
         dest="{{ satosa_env_dir }}/plugins/micro_services/custom_logging_service.yaml"
   
+- name: Create consent.yaml definition
+  template: src=consent.yaml.j2
+        dest="{{ satosa_env_dir }}/plugins/micro_services/consent.yaml"
+
 - name: Create MongoDB database satosa with collection clients
   shell: mongo satosa --eval "db.createCollection('clients')"
 

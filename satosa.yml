@@ -11,6 +11,7 @@
     - { role: common,      tags: common      }
     - { role: satosa,      tags: satosa      }
     - { role: pyff,        tags: pyff        }
+    - { role: cmservice,   tags: cmservice   }
     - { role: nginx,       tags: nginx       }
 
   vars_files:

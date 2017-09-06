@@ -2,6 +2,7 @@
 satosa_tld: "satosa.local"
 satosa_hostname: "proxy.{{satosa_tld}}"
 pyff_hostname: "mdq.{{satosa_tld}}"
+cmservice_hostname: "consent.{{satosa_tld}}"
 
 cert_dir: "/opt/satosa/certs"
 www_dir: "/var/www/html"
@@ -30,4 +31,14 @@ pyff_src_dir: "{{ pyff_project_dir }}/pyff-src"
 pyff_env_dir: "{{ pyff_project_dir }}/pyff-env"
 
 pyff_host: "127.0.0.1"
-pyff_port: "8090"
+pyff_port: "8081"
+
+# CMservice configuration
+cmservice_repo_url: "https://github.com/its-dirg/CMservice.git"
+cmservice_repo_version: "master"
+cmservice_project_dir: "/opt/cmservice"
+cmservice_src_dir: "{{ cmservice_project_dir }}/cmservice-src"
+cmservice_env_dir: "{{ cmservice_project_dir }}/cmservice-env"
+
+cmservice_host: "127.0.0.1"
+cmservice_port: "8082"

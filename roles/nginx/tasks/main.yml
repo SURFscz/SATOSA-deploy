@@ -30,6 +30,11 @@
             dest=/etc/nginx/sites-available/{{ pyff_hostname }}
   become_method: sudo
 
+- name: add cmservice config for consent site to sites-available
+  template: src=cmservice.conf.j2
+            dest=/etc/nginx/sites-available/{{ cmservice_hostname }}
+  become_method: sudo
+
 - name: Create symlink to {{ satosa_tld }} in sites-enabled
   file: src=/etc/nginx/sites-available/{{ satosa_tld }} dest=/etc/nginx/sites-enabled/{{ satosa_tld }} state=link
   become_method: sudo
@@ -40,6 +45,10 @@
 
 - name: Create symlink to {{ pyff_hostname }} in sites-enabled
   file: src=/etc/nginx/sites-available/{{ pyff_hostname }} dest=/etc/nginx/sites-enabled/{{ pyff_hostname }} state=link
+  become_method: sudo
+
+- name: Create symlink to {{ cmservice_hostname }} in sites-enabled
+  file: src=/etc/nginx/sites-available/{{ cmservice_hostname }} dest=/etc/nginx/sites-enabled/{{ cmservice_hostname }} state=link
   become_method: sudo
 
 - name: restart nginx

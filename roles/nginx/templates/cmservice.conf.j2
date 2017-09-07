@@ -1,0 +1,13 @@
+# subdomain for the pyFF mdq
+server {
+    listen {{ nginx_port }} ssl;
+    ssl_certificate {{ consent_server_cert }};
+    ssl_certificate_key {{ consent_server_key }};
+    server_name {{ cmservice_hostname }};
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_pass http://{{ cmservice_host }}:{{ cmservice_port }}/;
+    }
+}
+
